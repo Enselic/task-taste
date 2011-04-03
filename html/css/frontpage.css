@@ -1,0 +1,70 @@
+/*
+ * Copyright 2011 Martin Nordholts <martin@chromecode.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+* {
+    margin : 0;
+    padding : 0;
+}
+
+#logo  {
+    background-image : url('/images/logo-repeated-background-1x130.png');
+    height : 130px;
+
+    -moz-border-radius : 10px;
+    border-radius : 10px;
+}
+
+/* Show the logo text from an image instead */
+#logo-text > h1 {
+    display : none;
+}
+#logo-text {
+    background-image : url('/images/logo-334x130.png');
+    margin : 0 auto;
+    width : 334px;
+    height : 85px;
+}
+
+#oneline-description {
+    text-align : center;
+    font-size : 16px;
+    font-style : italic;
+    padding : 0;
+    margin : 0;
+}
+
+#fronpage-container {
+    width : 100%;
+    overflow : hidden;
+    text-align : center;
+}
+
+#create-account > form {
+    display : inline-block;
+    padding-top : 3em;
+    text-align : left;
+}
+#create-account p {
+    margin : 1em 0;
+}
+
+#create-account td {
+    padding-right : 0.5em;
+}
+
+#create-account input {
+    margin : 0.1em;
+}

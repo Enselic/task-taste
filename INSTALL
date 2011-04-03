@@ -1,0 +1,107 @@
+To install:
+-----------
+
+ * Edit '/includes/TaskTasteConfig/config.php'
+
+ * Copy the files under '/html' to DocumentRoot of your web server
+
+ * Copy the files under '/includes' to your PHP include path
+
+ * Use the folloing mod_rewrite rule:
+
+     RewriteEngine On
+     RewriteRule ^/projects/([^/]+)/([^/]+)$ /manage-project.php?username=$1&projectname=$2
+
+ * Connect to the MySQL database with the 'mysql' utility:
+
+       mysql --user=root --password
+
+   run the following commands to create the site database:
+
+       CREATE DATABASE tasktaste
+           DEFAULT CHARACTER SET utf8
+           DEFAULT COLLATE utf8_general_ci;
+  
+       CREATE TABLE Users (
+           user_id int NOT NULL AUTO_INCREMENT,
+           user_name varchar(64) NOT NULL,
+           user_email varchar(64) DEFAULT NULL,
+           user_salt varchar(24) NOT NULL,
+           user_passwordhash varchar(128) NOT NULL,
+           user_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+           PRIMARY KEY (user_id),
+           UNIQUE (user_name),
+           UNIQUE (user_email)
+       ) COMMENT='Table with users. Passwords are stored salted and hashed with whirlpool.';
+
+       CREATE TABLE LoginTokens (
+           logintoken_userid int NOT NULL,
+           logintoken_token varchar(128) NOT NULL,
+           logintoken_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+           INDEX (logintoken_userid)
+       ) COMMENT='Table with valid cookie-based login-tokens for users.';
+
+       CREATE TABLE Projects (
+           project_id int NOT NULL AUTO_INCREMENT,
+           project_owneruserid int NOT NULL,
+           project_urlname varchar(64) NOT NULL,
+           project_name varchar(64) NOT NULL,
+           project_description varchar(1024) NOT NULL DEFAULT 'Project description.',
+           project_workedperweek float NULL,
+           project_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+           PRIMARY KEY (project_id),
+           INDEX (project_urlname),
+           UNIQUE (project_owneruserid, project_urlname)
+       ) COMMENT='Info for projects.';
+  
+       CREATE TABLE Tasks (
+           task_id int NOT NULL AUTO_INCREMENT,
+           task_projectid int NOT NULL,
+           task_sizeid int NOT NULL,
+           task_nameid int NOT NULL,
+           task_deleted TINYINT NOT NULL DEFAULT '0',
+           task_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+           PRIMARY KEY (task_id),
+           INDEX (task_projectid)
+       ) COMMENT='Info for tasks.';
+
+       CREATE TABLE Sizes (
+           size_id int NOT NULL AUTO_INCREMENT,
+           size_previd int DEFAULT NULL,
+           size_size float NOT NULL,
+           size_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+           PRIMARY KEY (size_id)
+       ) COMMENT='Has info for task sizes. Each size stores the previous size for task it belonged to. This linked list makes task size updates non-destructive.';
+
+       CREATE TABLE Names (
+           name_id int NOT NULL AUTO_INCREMENT,
+           name_previd int DEFAULT NULL,
+           name_name varchar(300) NOT NULL,
+           name_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+           PRIMARY KEY (name_id)
+       ) COMMENT='Task names. Each name stores the previous name to create a linked list of names for a given task. This linked list makes task name updates non-destructive.';
+
+       CREATE TABLE Remaining (
+           remaining_id int NOT NULL AUTO_INCREMENT,
+           remaining_projectid int(11) NOT NULL,
+           remaining_date date NOT NULL,
+           remaining_size float NOT NULL,
+           PRIMARY KEY (remaining_id),
+           INDEX (remaining_projectid),
+           INDEX (remaining_date)
+       ) COMMENT='Tracks how much work is left for a given project a given date. Dates are in UTC';
+
+   Create a user the website will use the databases as:
+
+       CREATE USER 'tasktaste'@'localhost'
+           IDENTIFIED BY 'password';
+       GRANT SELECT, INSERT, UPDATE ON tasktaste.*
+           TO 'tasktaste'@'localhost';
+       GRANT DELETE ON tasktaste.LoginTokens
+           TO 'tasktaste'@'localhost';
+
+   If you setup a test environment for which the database will be
+   purged before automatic tests are run:
+
+       GRANT DELETE ON tasktaste.*
+           TO 'tasktaste'@'localhost';

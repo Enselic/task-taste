@@ -1,0 +1,6 @@
+List of bugs we should not introduce, but
+that there are no automatic tests for yet:
+==========================================
+
+* Plot is updated when tasks are added and removed, and their sizes
+  are changed, as well as when the worked-per-week estiamte is changed

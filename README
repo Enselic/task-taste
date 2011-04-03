@@ -1,0 +1,40 @@
+Task Taste, tasktaste.com
+=========================
+Website system for simple planning and tracking of projects.
+
+
+Technologies used/credits:
+--------------------------
+ * MySQL    - For data storage
+ * PHP      - For HTML stuff
+ * jQuery   - Great JS library
+ * jqPlot   - Great plotting library by Chris Leonello
+ * Selenium - For automatic tests of the website functionality
+
+
+Unprioritized todo:
+-------------------
+ * Support to remove projects
+ * Have better error messages than "Error, don't know why :("
+ * Support deleting projects
+ * Automatically estimate project completion
+ * Allow many owners for a project
+ * Follow http://fishbowl.pastiche.org/2004/01/19/persistent_login_cookie_best_practice/ completely
+ * A graphical design made by a graphical design professional
+ * Support changing password (through mail)
+ * Localization
+ * Support renaming projects
+ * Support grouping of tasks
+ * Support rearrangement of orders of tasks
+ * Make sure project updates are atomic to allow many users to edit safely a project at the same time
+ * Warn somehow when trying to edit project while not being owner
+ * Support editing project description on dashboard page.
+ * Cancel on a newly created task should delete it
+ * Improve support in IE, especially support for logging in, editing projects etc
+
+
+I hope you find the source code for this site, licenced under Apache
+Licence 2.0, as well as the site itself, useful.
+
+  Martin Nordholts
+  chromecode.com
