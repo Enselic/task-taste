@@ -156,12 +156,12 @@ function createTaskFromReply(data) {
  * to the HTML.
  */
 function addTaskCallback(data) {
-    $('#add-task-button').removeAttr('disabled');
+    $('#add-task-button, #add-task-input-field').removeAttr('disabled');
 
     var newTask = createTaskFromReply(data);
-    $('#add-task-button').before(newTask);
+    $('#add-task-container').before(newTask);
     setupTaskDhtml(newTask);
-    $('.title', newTask).click();
+    $('#add-task-input-field').val("");
     updatePlot();
 }
 
@@ -171,12 +171,13 @@ function addTaskCallback(data) {
  */
 taskSequenceNumber = 0;
 function addTask(event) {
-    $('#add-task-button').attr('disabled', 'disabled');
+    $('#add-task-button, #add-task-input-field').attr('disabled', 'disabled');
 
     taskSequenceNumber++;
     $.post('/ajax/create-task.php',
-           { tasksequencenumber: taskSequenceNumber,
-             projectid: getProjectId() },
+           { projectid: getProjectId(),
+             tasksequencenumber: taskSequenceNumber,
+             taskname: $('#add-task-input-field').val() },
            addTaskCallback,
            "xml");
 }
@@ -325,6 +326,11 @@ function updatePlot() {
  */
 function setUpOwnerStuff() {
     $('#add-task-button').bind('click', addTask);
+    $('#add-task-input-field').bind('keypress', function(event) {
+        if (event.keyCode == '13' /*return*/) {
+            $('#add-task-button').click();
+        }
+    });
 
     $('.projectdescription').bind('click',
                            { url: '/ajax/set-project-description.php',

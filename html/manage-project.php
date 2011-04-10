@@ -113,7 +113,9 @@ if ($project) {
 <?php     }
       }
       if ($project && $owner_logged_in) { ?>
-                <button id="add-task-button">Add task</button>
+                <div id="add-task-container">
+                    <input id="add-task-input-field"/> <button id="add-task-button">Add task</button>
+                </div>
 <?php } ?>
             </div>
 <?php if ($project && $owner_logged_in) { ?>

@@ -37,6 +37,7 @@ class SeleniumTests(unittest.TestCase):
         self.edited_second_task_size = "42";
         self.edited_project_name = "SeleniumTestProject";
         self.new_task_name = "New task 1, click to edit";
+        self.named_task_name = "Named new task";
         self.second_new_task_name = "New task 1, click to edit"; # Same, beause we refresh the page
         self.edited_new_task = "Rename first task so we can create a new one";
         self.second_edited_new_task = "Edited new task";
@@ -173,12 +174,21 @@ class SeleniumTests(unittest.TestCase):
         self.assertFalse(sel.is_text_present(self.new_task_name));
         sel.click("add-task-button");
         self.fixme_sleep();
-        sel.click("save-button")
-        self.fixme_sleep();
         self.assertTrue(sel.is_text_present(self.new_task_name));
         # Make sure the task is in place also when we refresh the page
         self.open(self.edited_project_url);
         self.assertTrue(sel.is_text_present(self.new_task_name));
+
+        print "Create named new task"
+        self.open(self.edited_project_url);
+        self.assertFalse(sel.is_text_present(self.named_task_name));
+        sel.type("add-task-input-field", self.named_task_name);
+        sel.click("add-task-button");
+        self.fixme_sleep();
+        self.assertTrue(sel.is_text_present(self.named_task_name));
+        # Make sure the task is in place also when we refresh the page
+        self.open(self.edited_project_url);
+        self.assertTrue(sel.is_text_present(self.named_task_name));
 
         print "Change new task name"
         self.open(self.edited_project_url);
@@ -196,6 +206,8 @@ class SeleniumTests(unittest.TestCase):
         self.open(self.edited_project_url);
         self.assertFalse(sel.is_text_present(self.second_new_task_name));
         sel.click("add-task-button");
+        self.fixme_sleep();
+        sel.click("//h3[text()='" + self.second_new_task_name + "']");
         self.fixme_sleep();
         # Make sure we can edit the task without refreshing the page
         self.assertFalse(sel.is_text_present(self.second_edited_new_task));

@@ -29,7 +29,6 @@ Unprioritized todo:
  * Make sure project updates are atomic to allow many users to edit safely a project at the same time
  * Warn somehow when trying to edit project while not being owner
  * Support editing project description on dashboard page.
- * Cancel on a newly created task should delete it
  * Improve support in IE, especially support for logging in, editing projects etc
 
 

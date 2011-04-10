@@ -19,12 +19,18 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '/customers/tasktaste.com/tasktaste.com/httpd.www/phpincludes');
 require_once 'TaskTaste/tasktaste.php';
 
-$sequence_number = Utils::get_id_from_post(TASK_SEQUENCE_NUMBER);
 $project_id = Utils::get_id_from_post(PROJECT_ID);
+$sequence_number = Utils::get_id_from_post(TASK_SEQUENCE_NUMBER);
+$task_name = Utils::get_name_from_post(TASK_NAME);
+
+if ($task_name == NULL || strlen($task_name) <= 0) {
+    $new_name = TASKTASTE_NEW_TASK_NAME_PART1 . $sequence_number . TASKTASTE_NEW_TASK_NAME_PART2;
+} else {
+    $new_name = $task_name;
+}
 
 $task = Sql::create_task($project_id);
 if ($task) {
-    $new_name = TASKTASTE_NEW_TASK_NAME_PART1 . $sequence_number . TASKTASTE_NEW_TASK_NAME_PART2;
     $task = Sql::update_task_name($task->get_id(), $new_name);
 }
 if ($task) {
