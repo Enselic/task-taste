@@ -40,7 +40,7 @@ class DataPoint implements AjaxObject {
     public function __construct($time, $size) {
         $size = (float)$size;
         if (!(is_int($time) && $time > 0 &&
-              is_float($size) && $size > 0.0)) {
+              is_float($size) && $size >= 0.0)) {
             throw new Exception("Invalid DataPoint constructor parameters $time, $size");
         }
 

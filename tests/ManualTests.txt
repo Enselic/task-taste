@@ -6,3 +6,4 @@ that there are no automatic tests for yet:
   are changed, as well as when the worked-per-week estiamte is changed
 * After a named new task has been created, the 'Add task' input field
   is cleared
+* When there are no work left, the plot says "Project complete!"

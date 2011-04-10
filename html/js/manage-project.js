@@ -276,7 +276,14 @@ function updatePlotCallback(data) {
     }
     if (targetLineData.length > 0 && completionDateString) {
         plots.push(targetLineData);
-        var label = "Target schedule<br/>Ends:&nbsp;" + completionDateString;
+
+        var label;
+        if (lastSize <= 0) {
+            label = "Project complete!";
+        } else {
+            label = "Target schedule<br/>Ends:&nbsp;" + completionDateString;
+        }
+
         series.push({ label: label, lineWidth: 1 });
     }
     plot = $.jqplot('chartdiv', plots,
