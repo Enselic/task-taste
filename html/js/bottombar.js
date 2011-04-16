@@ -41,7 +41,7 @@ function login(event) {
         '/ajax/authenticate-user.php',
         $(loginFormSelector).serialize(),
         loginResult,
-        "text");
+        "xml");
 }
 
 /**
