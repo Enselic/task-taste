@@ -16,7 +16,7 @@
  */
 
 // FIXME: Use a host that better supports PHP include paths...
-set_include_path(get_include_path() . PATH_SEPARATOR . '/customers/tasktaste.com/tasktaste.com/httpd.www/phpincludes');
+set_include_path(get_include_path() . PATH_SEPARATOR . '/customers/f/9/a/tasktaste.com/httpd.www/phpincludes');
 require_once 'TaskTaste/tasktaste.php';
 
 $project_id = Utils::get_id_from_get(PROJECT_ID);

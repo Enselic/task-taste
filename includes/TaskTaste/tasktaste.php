@@ -19,7 +19,7 @@
 date_default_timezone_set('UTC');
 
 // FIXME: Use a host that better supports PHP include paths...
-set_include_path(get_include_path() . PATH_SEPARATOR . '/customers/tasktaste.com/tasktaste.com/httpd.www/phpincludes');
+set_include_path(get_include_path() . PATH_SEPARATOR . '/customers/f/9/a/tasktaste.com/httpd.www/phpincludes');
 require_once 'TaskTasteConfig/config.php';
 
 require_once 'TaskTaste/ajax-object.php';
