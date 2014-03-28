@@ -16,11 +16,11 @@
 
 
 # Manual configuration
-APACHE_HTML_ROOT = /tmp/tasktasteroot
-PHP_INCLUDE_ROOT = /tmp/tasktasteroot/phpincludes
+APACHE_HTML_ROOT = /Library/WebServer/Documents/
+PHP_INCLUDE_ROOT = /php/includes
 
 # Paths to source of libraries we use
-JQPLOT_SRC_ROOT = /home/martin/source/jquery.jqplot.1.0.0a_r701
+JQPLOT_SRC_ROOT = /Users/martin/Downloads
 
 
 install-and-remove-config-php: install

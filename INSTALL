@@ -3,9 +3,12 @@ To install:
 
  * Edit 'includes/TaskTasteConfig/config.php'
 
- * Copy the files under 'html' to DocumentRoot of your web server
+ * Download and unzip
+   https://bitbucket.org/cleonello/jqplot/downloads/jquery.jqplot.1.0.0a_r701.zip
 
- * Copy the files under 'includes' to your PHP include path
+ * Edit 'Makefile'
+
+ * Run 'make install' with appropriate privileges
 
  * Use the folloing mod_rewrite rule:
 
