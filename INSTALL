@@ -1,11 +1,11 @@
 To install:
 -----------
 
- * Edit '/includes/TaskTasteConfig/config.php'
+ * Edit 'includes/TaskTasteConfig/config.php'
 
- * Copy the files under '/html' to DocumentRoot of your web server
+ * Copy the files under 'html' to DocumentRoot of your web server
 
- * Copy the files under '/includes' to your PHP include path
+ * Copy the files under 'includes' to your PHP include path
 
  * Use the folloing mod_rewrite rule:
 
