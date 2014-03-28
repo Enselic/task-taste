@@ -21,6 +21,8 @@ To install:
        CREATE DATABASE tasktaste
            DEFAULT CHARACTER SET utf8
            DEFAULT COLLATE utf8_general_ci;
+
+       USE tasktaste;
   
        CREATE TABLE Users (
            user_id int NOT NULL AUTO_INCREMENT,
