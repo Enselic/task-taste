@@ -25,9 +25,7 @@ To install:
            DEFAULT CHARACTER SET utf8
            DEFAULT COLLATE utf8_general_ci;
 
-       USE tasktaste;
-  
-       CREATE TABLE Users (
+       CREATE TABLE tasktaste.Users (
            user_id int NOT NULL AUTO_INCREMENT,
            user_name varchar(64) NOT NULL,
            user_email varchar(64) DEFAULT NULL,
@@ -39,14 +37,14 @@ To install:
            UNIQUE (user_email)
        ) COMMENT='Table with users. Passwords are stored salted and hashed with whirlpool.';
 
-       CREATE TABLE LoginTokens (
+       CREATE TABLE tasktaste.LoginTokens (
            logintoken_userid int NOT NULL,
            logintoken_token varchar(128) NOT NULL,
            logintoken_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
            INDEX (logintoken_userid)
        ) COMMENT='Table with valid cookie-based login-tokens for users.';
 
-       CREATE TABLE Projects (
+       CREATE TABLE tasktaste.Projects (
            project_id int NOT NULL AUTO_INCREMENT,
            project_owneruserid int NOT NULL,
            project_urlname varchar(64) NOT NULL,
@@ -59,7 +57,7 @@ To install:
            UNIQUE (project_owneruserid, project_urlname)
        ) COMMENT='Info for projects.';
   
-       CREATE TABLE Tasks (
+       CREATE TABLE tasktaste.Tasks (
            task_id int NOT NULL AUTO_INCREMENT,
            task_projectid int NOT NULL,
            task_sizeid int NOT NULL,
@@ -70,7 +68,7 @@ To install:
            INDEX (task_projectid)
        ) COMMENT='Info for tasks.';
 
-       CREATE TABLE Sizes (
+       CREATE TABLE tasktaste.Sizes (
            size_id int NOT NULL AUTO_INCREMENT,
            size_previd int DEFAULT NULL,
            size_size float NOT NULL,
@@ -78,7 +76,7 @@ To install:
            PRIMARY KEY (size_id)
        ) COMMENT='Has info for task sizes. Each size stores the previous size for task it belonged to. This linked list makes task size updates non-destructive.';
 
-       CREATE TABLE Names (
+       CREATE TABLE tasktaste.Names (
            name_id int NOT NULL AUTO_INCREMENT,
            name_previd int DEFAULT NULL,
            name_name varchar(300) NOT NULL,
@@ -86,7 +84,7 @@ To install:
            PRIMARY KEY (name_id)
        ) COMMENT='Task names. Each name stores the previous name to create a linked list of names for a given task. This linked list makes task name updates non-destructive.';
 
-       CREATE TABLE Remaining (
+       CREATE TABLE tasktaste.Remaining (
            remaining_id int NOT NULL AUTO_INCREMENT,
            remaining_projectid int(11) NOT NULL,
            remaining_date date NOT NULL,
