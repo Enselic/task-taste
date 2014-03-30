@@ -60,8 +60,8 @@ To install
        CREATE TABLE tasktaste.Tasks (
            task_id int NOT NULL AUTO_INCREMENT,
            task_projectid int NOT NULL,
-           task_sizeid int NOT NULL,
-           task_nameid int NOT NULL,
+           task_sizeid int NOT NULL DEFAULT '0',
+           task_nameid int NOT NULL DEFAULT '0',
            task_deleted TINYINT NOT NULL DEFAULT '0',
            task_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
            PRIMARY KEY (task_id),
