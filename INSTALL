@@ -1,5 +1,5 @@
-To install:
------------
+To install
+----------
 
  * Edit 'includes/TaskTasteConfig/config.php'
 
@@ -56,7 +56,7 @@ To install:
            INDEX (project_urlname),
            UNIQUE (project_owneruserid, project_urlname)
        ) COMMENT='Info for projects.';
-  
+
        CREATE TABLE tasktaste.Tasks (
            task_id int NOT NULL AUTO_INCREMENT,
            task_projectid int NOT NULL,
@@ -103,8 +103,39 @@ To install:
        GRANT DELETE ON tasktaste.LoginTokens
            TO 'tasktaste'@'localhost';
 
-   If you setup a test environment for which the database will be
-   purged before automatic tests are run:
+To install for tests
+--------------------
+
+   To setup the automated test environment you need to setup a
+   database in which the tasktaste user has privileges to delete
+   stuff. This is needed so that the database can be purged in order
+   to have a repeatable environent for the tests:
 
        GRANT DELETE ON tasktaste.*
            TO 'tasktaste'@'localhost';
+
+   Then you need to install libraries required by the Selenium RC
+   web-browser testing suite. First, download and untar
+
+     https://pypi.python.org/packages/source/s/selenium/selenium-2.41.0.tar.gz
+
+   then cd into the unpacked dir and run
+
+     sudo python setup.py install
+
+   Now the Python library for selenium is installed. Finally, we just need to download
+   and start the server, since we have legacy RC-based scripts. So download
+
+     http://selenium-release.storage.googleapis.com/2.41/selenium-server-standalone-2.41.0.jar
+
+   and then start the server:
+
+     java -jar selenium-server-standalone-2.41.0.jar
+
+   After this is done, you run the tests simply by running
+
+     make tests
+
+   from the git root. The tests include both unit tests as well as
+   "real" tests that use a real browser. You might need to adjust the
+   path to the firefox binary in tests/SeleniumTests.py
