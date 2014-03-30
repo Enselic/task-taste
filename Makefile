@@ -15,13 +15,22 @@
 #
 
 
-# Manual configuration
+# Manual configuration:
+#
+
+# HTML and PHP roots
 APACHE_HTML_ROOT = /Library/WebServer/Documents/
 PHP_INCLUDE_ROOT = /php/includes
 
 # Paths to source of libraries we use
 JQPLOT_SRC_ROOT = /Users/martin/Downloads
 
+# Absolute path to phpunit
+# Download with curl -O https://phar.phpunit.de/phpunit.phar and chmod +x it
+PHPUNIT = /Users/martin/source/task-taste/phpunit.phar
+
+#
+# End of manual configuration
 
 install-and-remove-config-php: install
 	rm -r $(PHP_INCLUDE_ROOT)/TaskTasteConfig
@@ -51,8 +60,8 @@ purge-database:
 
 phpunit-tests:
 	@echo "PHPUnit tests:"
-	phpunit tests/UtilsTests.php
-	phpunit tests/ProjectTests.php
+	$(PHPUNIT) tests/UtilsTests.php
+	$(PHPUNIT) tests/ProjectTests.php
 
 selenium-tests: purge-database
 
