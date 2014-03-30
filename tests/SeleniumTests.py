@@ -20,7 +20,7 @@ import unittest, time, re
 class SeleniumTests(unittest.TestCase):
     def setUp(self):
         self.verificationErrors = []
-        self.selenium = selenium("localhost", 4444, "*firefox /usr/lib64/firefox-3.6/firefox", "http://localhost/")
+        self.selenium = selenium("localhost", 4444, "*firefox /Applications/Firefox.app/Contents/MacOS/firefox", "http://localhost/")
         self.selenium.start()
 
         self.first_user = "SeleniumFirstUser";
