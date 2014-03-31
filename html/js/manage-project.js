@@ -228,6 +228,7 @@ function updatePlotCallback(data) {
     var todaysDate = $.jsDate.strftime(today, '%Y-%m-%d');
     var todaysSize = lastSize;
     var todaysDatapoint = [todaysDate, todaysSize];
+    var projectComplete = lastSize <= 0;
 
     // Defines approximately the minimum amount of days to stretch the
     // date axis to
@@ -236,20 +237,34 @@ function updatePlotCallback(data) {
     var completionDateString = null;
     var chartTimeSpannInDays = approxMinDaysOnDateAxis;
     if (beginningOfProject != null && workPerWeek > 0) {
-        var daysBeforeComplete = lastSize / workPerDay;
-        var completionDate = new $.jsDate(new Date()).add(daysBeforeComplete, 'days');
-        var daysAfterStart = today.diff(beginningOfProject, 'days');
+
+        var completionDate;
+        var referenceDate;
+        if (projectComplete) {
+            // We know the end date!
+            completionDate = new $.jsDate(Date.parse(lastSizeDate));
+            referenceDate = new $.jsDate(Date.parse(completionDate));
+        } else {
+            // Estimate the end date
+            var daysBeforeComplete = lastSize / workPerDay;
+            completionDate = new $.jsDate(new Date()).add(daysBeforeComplete, 'days');
+            referenceDate = today;
+        }
+            
+        var daysAfterStart = referenceDate.diff(beginningOfProject, 'days');
         var sizeOfStart = daysAfterStart * workPerDay;
         var interpolatedStartDate = Date.parse(beginningOfProject);
         completionDateString = $.jsDate.strftime(completionDate, '%Y-%m-%d');
         targetLineData.push([beginningOfProject, (parseFloat(lastSize) + parseFloat(sizeOfStart))]);
-        targetLineData.push(todaysDatapoint);
+        if (!projectComplete) {
+            targetLineData.push(todaysDatapoint);
+        }
         targetLineData.push([completionDateString, 0]);
 
         chartTimeSpannInDays = completionDate.diff(beginningOfProject);
     }
 
-    if (lastSizeDate != todaysDate) {
+    if (lastSizeDate != todaysDate && !projectComplete) {
         // Make sure there is a datapoint for today too
         lineData.push(todaysDatapoint);
     }
@@ -278,7 +293,7 @@ function updatePlotCallback(data) {
         plots.push(targetLineData);
 
         var label;
-        if (lastSize <= 0) {
+        if (projectComplete) {
             label = "Project complete!";
         } else {
             label = "Target schedule<br/>Ends:&nbsp;" + completionDateString;
