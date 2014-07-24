@@ -4,7 +4,7 @@
                  <h1>Task Taste</h1>
              </div>
              <div id="oneline-description">
-                 <p><?php echo TASKTASTE_ONELINE_DESCRIPTION ?></p>
+                 <span style="color: red;"><b>WARNING:</b> tasktaste.com will cease to exist <b>2014-10-27</b></span>
              </div>
         </div>
 

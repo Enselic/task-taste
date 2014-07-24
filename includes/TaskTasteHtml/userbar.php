@@ -27,6 +27,7 @@ $current_user = Authentication::get_logged_in_user();
         <div id="userbar">
             <div id="usernamediv">
               <a href="/"><?php echo $current_user->get_name() ?></a>
+              <span style="color: red; padding-left: 2em;"><b>WARNING:</b> tasktaste.com will cease to exist <b>2014-10-27</b></span>
             </div>
 
             <div id="logoutdiv">
@@ -35,6 +36,7 @@ $current_user = Authentication::get_logged_in_user();
         </div>
 <?php } else { ?>
         <div id="toplink">
+            <span style="color: red; padding-right: 2em;"><b>WARNING:</b> tasktaste.com will cease to exist <b>2014-10-27</b></span>
             <a href="/">tasktaste.com</a>
         </div>
 <?php } ?>
